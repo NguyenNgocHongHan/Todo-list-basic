@@ -1,3 +1,4 @@
+
 const newTodoContainer = document.querySelector('.newTodoContainer');
 const editTodoContainer = document.querySelector('.editTodoContainer');
 const newBtn = document.querySelector('.newBtn');
@@ -17,8 +18,8 @@ const errorAdd = document.getElementById('errorAdd');
 const errorEdit = document.getElementById('errorEdit');
 const checkAll = document.getElementById('checkAll');
 
-const myArrayTodo = JSON.parse(localStorage.getItem('myJSONTodo'));
-
+const myArrayTodo = JSON.parse(localStorage.getItem('myJSONTodo')) == null ? [] : JSON.parse(localStorage.getItem('myJSONTodo'));
+console.log(myArrayTodo);
 let selectAll = false;
 
 const addForm = function () {
@@ -85,28 +86,47 @@ const checkFunc = function (index) {
     location.reload();
 }
 
+// const checkAllClick = function(e){
+//     selectAll = e.target.checked;
+//     for (row in myArrayTodo) {
+//         myArrayTodo[row].check = selectAll;
+//         localStorage.setItem('myJSONTodo', JSON.stringify(myArrayTodo));
+//     }
+
+//     showTodo();
+//     location.reload();
+// }
 
 const showTodo = function () {
     let LI;
     if (myArrayTodo.length > 0) {
         LI = `<table>`;
-        LI += `<tr>
-                    <td><input type="checkbox" id="checkAll" ${selectAll === true ? "checked" : "unchecked"} /></td>
-                    <td style="font-size: small; font-weight: bold; text-align: center;">Check All</td>
-                </tr>`
+        LI += `<thead>
+                    <tr>
+                        <th class="btn-group">
+                            <p style="font-size:small;">Check All</p>
+                            <input type="checkbox" id="checkAll" ${selectAll === true ? "checked" : "unchecked"} />
+                        </th>
+                        <th>No.</th>
+                        <th>Task</th>
+                        <th></th>
+                    </tr>
+                </thead>`;
+        LI +=`<tbdoy>`;
         for (row in myArrayTodo) {
             LI += `<tr>
-                    <td>
+                    <td style="text-align:center; width: 10%;">
                         <input type="checkbox" onclick="checkFunc(${row})" class="checkboxes" id="${row}" ${myArrayTodo[row].check === true ? "checked" : "unchecked"}/>
                     </td>
-                    <td class = "item">
+                    <td class="sNo" style="width: 10%; text-align:center;">${Number(row) + 1}</td>
+                    <td class = "itemList">${myArrayTodo[row].content}</td>
+                    <td style=" width: 10%;" class = "item">
                         <button class="editBtn" onclick="editForm(${row})"><i class="fas fa-pencil"></i></button>
                         <button class="deleteBtn" onclick="deleteFunc(${row})"><i class="fas fa-trash-alt"></i></button>
                     </td>
-                    <td class = "sNo">${Number(row) + 1}</td>
-                    <td class = "itemList todoItem todoTitle">${myArrayTodo[row].content}</td>
                 </tr>`;
         }
+        LI += `</tbody>`
         LI += ` </table>`;
     }
     else {
@@ -137,16 +157,15 @@ submitAddForm.addEventListener('click', () => {
     localStorage.setItem('myJSONTodo', JSON.stringify(myArrayTodo));
 });
 
-document.getElementById('checkAll').addEventListener('click', function (e) {
-    selectAll = e.target.checked;
-    for (row in myArrayTodo) {
-        myArrayTodo[row].check = selectAll;
-        localStorage.setItem('myJSONTodo', JSON.stringify(myArrayTodo));
-    }
-
-    showTodo();
-    location.reload();
-
-    console.log(e.target.checked);
-    console.log(selectAll);
-});
+if (myArrayTodo.length>0){
+    document.getElementById('checkAll').addEventListener('click', function (e) {
+        selectAll = e.target.checked;
+        for (row in myArrayTodo) {
+            myArrayTodo[row].check = selectAll;
+            localStorage.setItem('myJSONTodo', JSON.stringify(myArrayTodo));
+        }
+    
+        showTodo();
+        location.reload();
+    });
+}
