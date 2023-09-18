@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <title>To-do-list</title>
+</head>
+
+<body>
+    <div class="container">
+        <button class="newBtn"><i class="fa-solid fa-plus"></i></button>
+        <div class="header">
+            <h3 class="title">Todo App</h3>
+        </div>
+        <div class="todoList">
+
+        </div>
+    </div>
+
+    <div class="newTodoContainer">
+        <div class="newTodoWrapper">
+            <button class="closeAddBtn"><i class="fa-solid fa-times"></i></button>
+            <div class="header">
+                <h3 class="title"></h3>
+            </div>
+            <textarea id="todoAddData" placeholder="Enter Todo" cols="30" rows="6"></textarea>
+            <div id="errorAdd"></div>
+            <button class="submitAddForm">Create</button>
+        </div>
+    </div>
+
+    <div class="editTodoContainer">
+        <div class="editTodoWrapper">
+            <button class="closeEditBtn"><i class="fa-solid fa-times"></i></button>
+            <div class="header">
+                <h3 class="title"></h3>
+            </div>
+            <textarea id="todoEditData" placeholder="Enter Todo" cols="30" rows="6"></textarea>
+            <div id="errorEdit"></div>
+            <button class="submitEditForm">Save</button>
+        </div>
+    </div>
+    <script src="to-do-list.js"></script>
+</body>
+
+</html>
