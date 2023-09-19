@@ -81,10 +81,10 @@ const editForm = function (index) {
 }
 
 
-let test;
+let temp;
 const checkFunc = function (index) {
-    test = document.getElementById(`${index}`);
-    listTask[index].check = test.checked;
+    temp = document.getElementById(`${index}`);
+    listTask[index].check = temp.checked;
     localStorage.setItem('listTodo', JSON.stringify(listTask));
     showTodo();
 }
