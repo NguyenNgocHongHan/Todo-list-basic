@@ -34,29 +34,24 @@ body {
 }
 
 .container {
+  text-align: center;
   height: auto;
   position: relative;
   background: #fff;
   border-radius: 1rem;
-  width: 90%;
+  width: 80%;
 }
 
 .newBtn {
-  top: -5%;
-  border: 0;
-  right: -5%;
-  display: grid;
+  right: 0%;
   color: #fff;
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
   cursor: pointer;
-  font-size: 1.6rem;
+  font-size: 1rem;
   position: absolute;
-  place-items: center;
   border-radius: 50rem;
   background: rgb(147, 51, 234);
-  transition: background 0.1s ease-in-out;
-  box-shadow: 0 0 20px rgb(255 255 255 / 20%);
 }
 
 .newBtn:hover {
@@ -257,7 +252,7 @@ body {
   font-size: clamp(1.6rem, 4vw, 2rem);
 }
 
-.newTodoWrapper #todoAddData {
+.newTodoWrapper #content-create {
   outline: none;
   padding: 0.4rem 0.4rem;
   margin-bottom: 0.8rem;
@@ -266,11 +261,11 @@ body {
   border: 2px solid rgb(0 0 0 / 30%);
 }
 
-.newTodoWrapper #todoAddData::placeholder {
+.newTodoWrapper #content-create::placeholder {
   color: rgb(0 0 0 / 60%);
 }
 
-.newTodoWrapper #todoAddData:focus {
+.newTodoWrapper #content-create:focus {
   border: 2px solid rgb(147 51 234);
 }
 
@@ -337,7 +332,7 @@ body {
   font-size: clamp(1.6rem, 4vw, 2rem);
 }
 
-.editTodoWrapper #todoEditData {
+.editTodoWrapper #content-edit {
   outline: none;
   padding: 0.4rem 0.4rem;
   margin-bottom: 0.8rem;
@@ -346,11 +341,11 @@ body {
   border: 2px solid rgb(0 0 0 / 30%);
 }
 
-.editTodoWrapper #todoEditData::placeholder {
+.editTodoWrapper #content-edit::placeholder {
   color: rgb(0 0 0 / 60%);
 }
 
-.editTodoWrapper #todoEditData:focus {
+.editTodoWrapper #content-edit:focus {
   border: 2px solid rgb(147 51 234);
 }
 
@@ -389,18 +384,16 @@ body {
 }
 
 .itemList {
-  align-items: center;
+  text-align: left;
   font-family: "Poppins", sans-serif;
   max-width: 0;
-  /* overflow: hidden; */
-  text-overflow: ellipsis;
-  white-space: nowrap;
   width: 50%;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .item {
   gap: 5px;
+  text-align: center;
 }
 
 #errorAdd {
@@ -409,11 +402,6 @@ body {
 
 #errorEdit {
   color: red;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
 }
 
 #checkAll {
@@ -434,4 +422,27 @@ button {
   margin: 2px;
   margin-left: inherit;
   align-items: center;
+}
+ .test {
+  width: 200px;
+  overflow-wrap: break-word;
+ }
+
+ table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #dddddd;
+}
+
+.table-list {
+ overflow-y: auto;
+ height: 500px;
+}
+
+.table-list thead th {
+ position: sticky;
+ top: 0px;
 }
