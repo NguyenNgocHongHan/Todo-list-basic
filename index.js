@@ -1,4 +1,4 @@
-
+'use strict';
 const newTodoContainer = document.querySelector('.newTodoContainer');
 const editTodoContainer = document.querySelector('.editTodoContainer');
 const newBtn = document.querySelector('.newBtn');
@@ -103,7 +103,6 @@ const checkAllBtn = function () {
     for (row in listTask) {
         listTask[row].check = selectAll;
         localStorage.setItem('listTodo', JSON.stringify(listTask));
-        console.log(listTask[row]);
     }
     showTodo();
 }
