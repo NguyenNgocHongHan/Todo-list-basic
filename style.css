@@ -32,6 +32,7 @@ body {
   justify-content: center;
   background: rgb(147 51 234 / 75%);
   background-image: url('\img.jpg');
+  background-size: contain;
 }
 
 .container {
@@ -385,7 +386,7 @@ body {
   background: rgb(147 51 234);
 }
 
-.itemList {
+.task-content {
   text-align: left;
   font-family: "Poppins", sans-serif;
   max-width: 0;
@@ -448,4 +449,18 @@ tbody tr:nth-child(odd) {
 .table-list thead th {
   position: sticky;
   top: 0px;
+  background-color: #fff;
+}
+
+a {
+  text-decoration: none;
+  font-size: small;
+}
+
+a:active {
+  color: red;
+}
+
+.completed {
+  text-decoration: line-through;
 }

@@ -9,6 +9,7 @@ const submitAddForm = document.querySelector('.submitAddForm');
 const submitEditForm = document.querySelector('.submitEditForm');
 const editBtn = document.querySelector('.eidtBtn');
 const deleteBtn = document.querySelector('.deleteBtn');
+const clearCompleteHref = document.querySelector('.clear-complete-href');
 
 const checkboxes = document.querySelectorAll('.checkboxes');
 
@@ -69,20 +70,20 @@ const editForm = function (index) {
     document.getElementById('content-edit').value = listTask[index].content;
     submitEditForm.addEventListener('click', () => {
         submitEdit(index);
-        location.reload();
+        if (!(contentEdit.value === '')) location.reload();
     });
     contentEdit.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
             submitEdit(index);
-            location.reload();
+            if (!(contentEdit.value === '')) location.reload();
         }
     });
 }
 
 
 let temp;
-const checkFunc = function (index) {
+const check = function (index) {
     temp = document.getElementById(`${index}`);
     listTask[index].check = temp.checked;
     localStorage.setItem('listTodo', JSON.stringify(listTask));
@@ -91,21 +92,33 @@ const checkFunc = function (index) {
 
 const checkAllFunc = function () {
     let count = 0;
-    for (row in listTask) {
-        if (listTask[row].check === true) count++;
-    }
+    listTask.forEach((task, index) => {
+        if (task.check === true) count++;
+    });
     if (count === listTask.length) { selectAll = true; }
     else selectAll = false;
 }
 
 const checkAllBtn = function () {
     selectAll = document.getElementById('checkAll').checked;
-    for (row in listTask) {
-        listTask[row].check = selectAll;
-        localStorage.setItem('listTodo', JSON.stringify(listTask));
-    }
+    listTask.map((task) => task.check = selectAll);
+    localStorage.setItem('listTodo', JSON.stringify(listTask));
     showTodo();
 }
+
+const clearComplete = function () {
+    listTask.splice(listTask.findIndex(task => task.check === true));
+    localStorage.setItem('listTodo', JSON.stringify(listTask));
+    showTodo();
+};
+
+const itemLeft = function () {
+    let count = 0;
+    listTask.map((task, item) => {
+        if (!task.check) count++;
+    });
+    return count;
+};
 
 const showTodo = function () {
     let LI;
@@ -121,30 +134,36 @@ const showTodo = function () {
                         </th>
                         <th>No.</th>
                         <th>Task</th>
-                        <th></th>
+                        <th><a href="#" class="clear-complete-href" onclick="clearComplete()">Clear completed</a></th>
                     </tr>
                 </thead>`;
         LI += `<tbody>`;
-        for (row in listTask) {
+        listTask.forEach((task, index) => {
             LI += `<tr>
-                    <td style="text-align:center; width: 10%;">
-                        <input type="checkbox" onclick="checkFunc(${row})" class="checkboxes" id="${row}" ${listTask[row].check === true ? "checked" : "unchecked"}/>
-                    </td>
-                    <td class="sNo" style="width: 10%; text-align:center;">${Number(row) + 1}</td>
-                    <td class="itemList">${listTask[row].content}</td>
-                    <td style=" width: 10%;" class = "item">
-                        <button class="editBtn" onclick="editForm(${row})"><i class="fas fa-pencil"></i></button>
-                        <button class="deleteBtn" onclick="deleteFunc(${row})"><i class="fas fa-trash-alt"></i></button>
-                    </td>
-                </tr>`;
-        }
-        LI += `</tbody>`
+                        <td style="text-align:center; width: 10%;">
+                            <input type="checkbox" onclick="check(${index})" class="checkboxes" id="${index}" ${task.check === true ? "checked" : "unchecked"}/>
+                        </td>
+                        <td class="sNo" style="width: 10%; text-align:center;">${index + 1}</td>
+                        <td class="task-content">${task.content}</td>
+                        <td style=" width: 10%;" class = "item">
+                            <button class="editBtn" onclick="editForm(${index})"><i class="fas fa-pencil"></i></button>
+                            <button class="deleteBtn" onclick="deleteFunc(${index})"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>`;
+        });
+        LI += `</tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4">${itemLeft()} item left</td>
+                    </tr>
+                </tfoot>`
         LI += ` </table>
                 </div>`;
     }
     else {
         LI = `<p style="text-align: center;">You don't have any task</p>`;
     }
+
     todoList.innerHTML = LI;
 }
 
@@ -167,10 +186,10 @@ if (listTask.length > 0) {
     document.getElementById('checkAll').addEventListener('click', function (e) {
         if (e.target.checked === true) {
             selectAll = true;
-            for (row in listTask) {
-                listTask[row].check = selectAll;
+            listTask.forEach((task, index) => {
+                task.check = selectAll;
                 localStorage.setItem('listTodo', JSON.stringify(listTask));
-            }
+            });
         }
         showTodo();
     });
